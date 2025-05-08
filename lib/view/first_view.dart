@@ -229,6 +229,14 @@ class _FirstViewState extends State<FirstView> {
   final myKey = GlobalKey<FormState>();
 
   @override
+  void dispose() {
+    // Dispose controllers to prevent memory leaks
+    firstContoller.dispose();
+    secondContoller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -252,9 +260,6 @@ class _FirstViewState extends State<FirstView> {
                         labelText: 'Enter first number',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 221, 10, 133),
-                              width: 2),
                         ),
                       ),
                       keyboardType: TextInputType.number,
@@ -275,8 +280,6 @@ class _FirstViewState extends State<FirstView> {
                         labelText: 'Enter second number',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide:
-                              const BorderSide(color: Colors.amber, width: 2),
                         ),
                       ),
                       keyboardType: TextInputType.number,
@@ -316,37 +319,7 @@ class _FirstViewState extends State<FirstView> {
                     const SizedBox(height: 8),
                     Text(
                       "Result : $result",
-                      style:
-                          const TextStyle(fontSize: 20, color: Colors.black),
-                    ),
-                  ],
-                ),
-              ),
-
-              // 👇 Bottom icon bar
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const [
-                    IconTextButton(
-                      icon: Icons.call,
-                      label: 'CALL',
-                      onPressed: _noop,
-                    ),
-                    IconTextButton(
-                      icon: Icons.near_me,
-                      label: 'ROUTE',
-                      onPressed: _noop,
-                    ),
-                    IconTextButton(
-                      icon: Icons.share,
-                      label: 'SHARE',
-                      onPressed: _noop,
+                      style: const TextStyle(fontSize: 20, color: Colors.black),
                     ),
                   ],
                 ),
@@ -357,38 +330,75 @@ class _FirstViewState extends State<FirstView> {
       ),
     );
   }
-
-  static void _noop() {}
 }
 
-class IconTextButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final VoidCallback onPressed;
 
-  const IconTextButton({
-    super.key,
-    required this.icon,
-    required this.label,
-    required this.onPressed,
-  });
+              // 👇 Bottom icon bar
+//               Container(
+//                 padding: const EdgeInsets.symmetric(vertical: 16),
+//                 decoration: BoxDecoration(
+//                   border: Border.all(color: Colors.black),
+//                   borderRadius: BorderRadius.circular(10),
+//                 ),
+//                 child: Row(
+//                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                   children: const [
+//                     IconTextButton(
+//                       icon: Icons.call,
+//                       label: 'CALL',
+//                       onPressed: _noop,
+//                     ),
+//                     IconTextButton(
+//                       icon: Icons.near_me,
+//                       label: 'ROUTE',
+//                       onPressed: _noop,
+//                     ),
+//                     IconTextButton(
+//                       icon: Icons.share,
+//                       label: 'SHARE',
+//                       onPressed: _noop,
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, color: Colors.teal),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: const TextStyle(color: Color.fromRGBO(244, 67, 54, 1)),
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   static void _noop() {}
+// }
+
+// class IconTextButton extends StatelessWidget {
+//   final IconData icon;
+//   final String label;
+//   final VoidCallback onPressed;
+
+//   const IconTextButton({
+//     super.key,
+//     required this.icon,
+//     required this.label,
+//     required this.onPressed,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return InkWell(
+//       onTap: onPressed,
+//       child: Column(
+//         mainAxisSize: MainAxisSize.min,
+//         children: [
+//           Icon(icon, color: Colors.teal),
+//           const SizedBox(height: 4),
+//           Text(
+//             label,
+//             style: const TextStyle(color: Color.fromRGBO(244, 67, 54, 1)),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
